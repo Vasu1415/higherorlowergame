@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{{ url_for('main.index') }}" class="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded">
+    Back to Home
+</a>
+<div class="container mx-auto py-6 px-4 h-screen flex items-center justify-center">
+    <div class="bg-black p-6 rounded-lg shadow-lg max-w-2xl w-full">
+        <div class="text-center mb-6 text-white">
+            {% if profile_pic_base64 %}
+            <img src="data:image/jpeg;base64,{{ profile_pic_base64 }}" alt="Profile Picture" class="mx-auto h-32 w-32 rounded-full mt-4"/>
+            {% endif %}
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Welcome back, {{ user.username }}</h1>
+        </div>
+        
+        <!-- <div class="mb-6">
+            <fieldset class="border border-gray-500 p-4 mb-4">
+                <legend>
+                    <h2 class="text-xl font-semibold mb-2 text-white">Previous Scores</h2>
+                </legend>
+                <span class="block rounded-full text-white text-xs px-2 py-1 m-1 bg-gray-700">Highscore: {{highscore}}</span>
+                <div class="flex flex-wrap justify-center">
+                     TODO: Dot Plot / Score Display -->
+                     <!--{% for score in scores %}
+                    <span class="block rounded-full text-white text-xs px-2 py-1 m-1 bg-gray-700">{{ score }}</span>
+                    {% endfor %}
+                </div>
+            </fieldset>
+        </div> -->
+
+        <hr>
+        <br>
+
+        <div class="text-white">
+            <form method="POST" action="" class="mb-4">
+                {{ update_username_form.hidden_tag() }}
+                <div class="mb-4">
+                    {{ update_username_form.username.label(class="block text-white bg-clip-text text-sm font-bold mb-2") }}
+                    {{ update_username_form.username(class="shadow appearance-none border rounded w-full py-2 px-3 bg-transparent text-red-600 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if update_username_form.username.errors %}
+                        <div class="error" role="alert">
+                            {% for error in update_username_form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Username</button> -->
+                {{ update_username_form.submit_username(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") }}
+            </form>
+
+            <form method="POST" action="" enctype="multipart/form-data">
+                {{ update_profile_pic_form.hidden_tag() }}
+                <div class="mb-4">
+                    {{ update_profile_pic_form.picture.label(class="block text-white text-sm font-bold mb-2") }}
+                    {{ update_profile_pic_form.picture(class="form-content shadow appearance-none border bg-transparent rounded w-full py-2 px-3 text-red-600 leading-tight focus:outline-none focus:shadow-outline") }}
+                    {% if update_profile_pic_form.picture.errors %}
+                        <div class="error" role="alert">
+                            {% for error in update_profile_pic_form.picture.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Photo</button> -->
+                {{ update_profile_pic_form.submit_picture(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") }}
+            </form>
+        </div>
+
+        <div class="text-center mt-6">
+            <a href="{{ url_for('users.logout_route') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Logout</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

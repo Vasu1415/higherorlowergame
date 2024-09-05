@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-black">
+    <div class="text-center">
+        <h1 class="text-5xl font-bold mb-8 relative z-10">
+            <span class="bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">Higher or Lower Game - Steam Edition</span>
+        </h1>
+        
+        {% if current_user.is_authenticated %}
+            <p class="text-2xl text-white mb-4">Welcome back, <span class="text-red-600">{{ current_user.username }}</span>!</p>
+        {% endif %}
+        
+    
+        <a href="{{ url_for('game.easy') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-4 shadow-md">
+            Start Game: Easy
+        </a>
+    
+        <a href="{{ url_for('game.medium') }}" class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full mb-4 shadow-md">
+            Start Game: Medium
+        </a>
+    
+        <a href="{{ url_for('game.hard') }}" class="inline-block bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mb-4 shadow-md">
+            Start Game: Hard
+        </a>
+        
+        <!-- Show the profile button if the user is logged in -->
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('users.user_route', username=current_user.username) }}" class="inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full mb-4 shadow-md">
+            My Profile
+        </a>
+        {% else %}
+        <!-- Show login and register buttons if the user is not logged in -->
+        <div class="flex justify-center">
+            <a href="{{ url_for('users.login_route') }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-l mr-2 shadow-md">
+                Login
+            </a>
+            <a href="{{ url_for('users.register_route') }}" class="bg-pink-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-r shadow-md">
+                Register
+            </a>
+        </div>
+        {% endif %}
+        <div class="mt-8 p-6 rounded-lg shadow-md">
+            <p class="text-3xl font-bold bg-gradient-to-r from-yellow-500 to-red-500 text-transparent bg-clip-text">TO WIN SELECT THE GAME THAT YOU FEEL HAS THE MAXIMUM DOWNLOADS</p>
+        </div>
+    </div>    
+</div>
+
+{% endblock %}
